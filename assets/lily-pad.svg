@@ -1,17 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="300" viewBox="0 0 360 300">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="360"
+     height="360"
+     viewBox="0 0 360 360">
+
   <defs>
-    <radialGradient id="g" cx="35%" cy="35%" r="80%">
-      <stop offset="0%" stop-color="#a8d98a" stop-opacity="0.95"/>
-      <stop offset="55%" stop-color="#689139" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#2d4a25" stop-opacity="0.0"/>
+    <!-- Base green gradient -->
+    <radialGradient id="padBase" cx="40%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#8cc63f"/>
+      <stop offset="70%" stop-color="#689139"/>
+      <stop offset="100%" stop-color="#4f7f2a"/>
     </radialGradient>
-    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.6"/></filter>
+
+    <!-- Edge rim highlight -->
+    <linearGradient id="padRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a9db5a"/>
+      <stop offset="100%" stop-color="#6fa62f"/>
+    </linearGradient>
+
+    <!-- Soft watercolor blur -->
+    <filter id="padBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
   </defs>
-  <ellipse cx="180" cy="160" rx="140" ry="105" fill="url(#g)" filter="url(#blur)" opacity="0.85"/>
-  <path d="M180 48 C92 48 35 105 35 160 c0 70 64 110 145 110 c88 0 145-46 145-110 C325 102 268 48 180 48Z" fill="#689139" fill-opacity="0.62"/>
-  <path d="M175 74 C105 78 68 120 64 162 c-6 54 46 86 114 90 c70 4 120-28 124-82 C307 112 247 70 175 74Z" fill="#a8d98a" fill-opacity="0.25" filter="url(#blur)"/>
-  <path d="M180 48 C168 88 168 126 180 162 C194 122 194 86 180 48Z" fill="#07070a" fill-opacity="0.32"/>
-  <path d="M180 58 L180 162" stroke="#d8f0c9" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round"/>
-  <path d="M180 104 C148 108 118 128 98 154" stroke="#d8f0c9" stroke-opacity="0.22" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M180 104 C212 108 242 128 262 154" stroke="#d8f0c9" stroke-opacity="0.22" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Outer rim -->
+  <path
+    d="M180 30
+       C100 30 40 90 40 170
+       C40 260 110 320 190 310
+       C270 300 330 230 310 150
+       C295 90 240 40 180 30Z"
+    fill="url(#padRim)"
+    opacity="0.55"/>
+
+  <!-- Main pad body -->
+  <path
+    d="M180 44
+       C110 44 56 96 56 170
+       C56 248 118 298 188 290
+       C256 282 304 226 288 158
+       C274 104 226 60 180 44Z"
+    fill="url(#padBase)"
+    filter="url(#padBlur)"
+    fill-opacity="0.60"/>
+
+  <!-- Notch cut -->
+  <path
+    d="M180 44
+       C168 74 160 94 152 118
+       C168 110 182 110 198 118
+       C190 94 184 74 180 44Z"
+    fill="#ffffff"
+    fill-opacity="0.32"/>
+
+  <!-- Veins -->
+  <g stroke="#4f7f2a" stroke-width="3" stroke-linecap="round" opacity="0.5">
+    <path d="M180 160 C180 110 178 86 180 60"/>
+    <path d="M180 160 C210 130 230 112 256 100"/>
+    <path d="M180 160 C230 160 258 166 286 176"/>
+    <path d="M180 160 C210 190 230 214 250 240"/>
+    <path d="M180 160 C180 214 176 242 170 270"/>
+    <path d="M180 160 C150 190 126 214 106 238"/>
+    <path d="M180 160 C130 160 102 164 74 176"/>
+    <path d="M180 160 C148 132 124 108 104 92"/>
+  </g>
+
+  <!-- Highlights -->
+  <g fill="#ffffff" opacity="0.30">
+    <ellipse cx="120" cy="110" rx="26" ry="18"/>
+    <ellipse cx="240" cy="120" rx="22" ry="14"/>
+    <ellipse cx="210" cy="210" rx="30" ry="18"/>
+  </g>
+
+  <!-- Water droplets -->
+  <g fill="#d9f2b4" opacity="0.50">
+    <circle cx="250" cy="95" r="6"/>
+    <circle cx="265" cy="110" r="4"/>
+    <circle cx="130" cy="230" r="5"/>
+    <circle cx="110" cy="215" r="3"/>
+  </g>
+
 </svg>
