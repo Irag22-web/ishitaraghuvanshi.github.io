@@ -20,10 +20,10 @@
     </radialGradient>
 
     <filter id="wcBlur" x="-25%" y="-25%" width="150%" height="150%">
-      <feGaussianBlur stdDeviation="2.2"/>
+      <feGaussianBlur stdDeviation="1.2"/>
     </filter>
-    <filter id="wcBlur2" x="-0%" y="-0%" width="10%" height="10%">
-      <feGaussianBlur stdDeviation="3.2"/>
+    <filter id="wcBlur2" x="-80%" y="-80%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.2"/>
     </filter>
   </defs>
 
