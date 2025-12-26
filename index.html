@@ -119,16 +119,16 @@
   </div>
 
   <div class="pond" aria-hidden="true">
-    <img class="pond-item" src="assets/lily-pad.svg" style="left:6%; top:10%; --size:150px; --rot:-8deg; --op:0.42;">
-    <img class="pond-item" src="assets/lily-flower.svg" style="left:12%; top:18%; --size:92px; --rot:10deg; --op:0.44;">
-    <img class="pond-item" src="assets/lily-pad.svg" style="left:78%; top:9%; --size:175px; --rot:6deg; --op:0.40;">
-    <img class="pond-item" src="assets/lily-flower.svg" style="left:72%; top:18%; --size:84px; --rot:-10deg; --op:0.42;">
-    <img class="pond-item" src="assets/lily-pad.svg" style="left:82%; top:44%; --size:210px; --rot:-6deg;">
-    <img class="pond-item" src="assets/lily-flower.svg" style="left:74%; top:52%; --size:92px; --rot:12deg; --op:0.46;">
-    <img class="pond-item" src="assets/lily-pad.svg" style="left:10%; top:48%; --size:200px; --rot:9deg; --op:0.38;">
-    <img class="pond-item" src="assets/lily-pad.svg" style="left:58%; top:78%; --size:220px; --rot:4deg; --op:0.38;">
-    <img class="pond-item" src="assets/lily-flower.svg" style="left:50%; top:84%; --size:88px; --rot:-12deg; --op:0.44;">
-    <img class="pond-item" src="assets/lily-pad.svg" style="left:22%; top:82%; --size:165px; --rot:-14deg; --op:0.36;">
+    <img class="pond-item" data-speed="0.37" src="assets/lily-pad.svg" style="left:6%; top:10%; --size:150px; --rot:-8deg; --op:0.42;">
+    <img class="pond-item" data-speed="0.29" src="assets/lily-flower.svg" style="left:12%; top:18%; --size:92px; --rot:10deg; --op:0.44;">
+    <img class="pond-item" data-speed="0.36" src="assets/lily-pad.svg" style="left:78%; top:9%; --size:175px; --rot:6deg; --op:0.40;">
+    <img class="pond-item" data-speed="0.26" src="assets/lily-flower.svg" style="left:72%; top:18%; --size:84px; --rot:-10deg; --op:0.42;">
+    <img class="pond-item" data-speed="0.32" src="assets/lily-pad.svg" style="left:82%; top:44%; --size:210px; --rot:-6deg;">
+    <img class="pond-item" data-speed="0.18" src="assets/lily-flower.svg" style="left:74%; top:52%; --size:92px; --rot:12deg; --op:0.46;">
+    <img class="pond-item" data-speed="0.2" src="assets/lily-pad.svg" style="left:10%; top:48%; --size:200px; --rot:9deg; --op:0.38;">
+    <img class="pond-item" data-speed="0.3" src="assets/lily-pad.svg" style="left:58%; top:78%; --size:220px; --rot:4deg; --op:0.38;">
+    <img class="pond-item" data-speed="0.25" src="assets/lily-flower.svg" style="left:50%; top:84%; --size:88px; --rot:-12deg; --op:0.44;">
+    <img class="pond-item" data-speed="0.3" src="assets/lily-pad.svg" style="left:22%; top:82%; --size:165px; --rot:-14deg; --op:0.36;">
   </div>
 
   <header class="topbar">
@@ -202,7 +202,87 @@
   <script>
     const COLORS={designer:['#81a6de','#456ab5'],healthcare:['#689139','#d8b152'],community:['#ca7487','#d8b152'],research:['#456ab5','#81a6de'],impact:['#d8b152','#ca7487']};
     const CATEGORY_LABELS={designer:'Designer',healthcare:'Healthcare Innovator',community:'Community Advocate',research:'Biomedical Researcher',impact:'Impact Strategist'};
-    const PROJECTS=[
+    
+    // Lily wobble (cloud-style spring repel + gentle scroll drift)
+    // Inspired by your cloud snippet: nearby cursor repels, motion springs back.
+    const lilyItems = Array.from(document.querySelectorAll('.pond-item'));
+    const lilyState = new Map();
+
+    const springCfg = { stiffness: 0.12, damping: 0.82 }; // tuned for "soft watercolor"
+    const maxDist = 320; // px radius of influence
+    const maxForce = 28; // px max offset
+
+    function initLily(){
+      lilyItems.forEach((el)=>{
+        const rect = el.getBoundingClientRect();
+        // store base position via CSS left/top percent; offsets start at 0
+        lilyState.set(el, { x:0, y:0, vx:0, vy:0, tx:0, ty:0, cx: rect.left + rect.width/2, cy: rect.top + rect.height/2, speed: parseFloat(el.dataset.speed||'0.25') });
+      });
+    }
+    initLily();
+
+    function updateCenters(){
+      lilyItems.forEach((el)=>{
+        const rect = el.getBoundingClientRect();
+        const s = lilyState.get(el);
+        if(!s) return;
+        s.cx = rect.left + rect.width/2;
+        s.cy = rect.top + rect.height/2;
+      });
+    }
+
+    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
+    window.addEventListener('mousemove', (e)=>{ mouseX = e.clientX; mouseY = e.clientY; });
+
+    window.addEventListener('scroll', ()=>{
+      // no-op; scroll is read in RAF for smoothness
+    }, {passive:true});
+
+    function lilyTick(){
+      const scrollY = window.scrollY || 0;
+
+      lilyItems.forEach((el)=>{
+        const s = lilyState.get(el);
+        if(!s) return;
+
+        // cursor repel target
+        const dx = mouseX - s.cx;
+        const dy = mouseY - s.cy;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+
+        if(dist < maxDist){
+          const force = (maxDist - dist) / maxDist; // 0..1
+          s.tx = (-dx) * force * (maxForce / maxDist) * maxDist * 0.12;
+          s.ty = (-dy) * force * (maxForce / maxDist) * maxDist * 0.12;
+        } else {
+          s.tx = 0;
+          s.ty = 0;
+        }
+
+        // gentle scroll drift (like clouds)
+        const driftY = -scrollY * s.speed * 0.06;
+        const targetX = s.tx;
+        const targetY = s.ty + driftY;
+
+        // spring integration (semi-implicit Euler)
+        const ax = (targetX - s.x) * springCfg.stiffness;
+        const ay = (targetY - s.y) * springCfg.stiffness;
+        s.vx = (s.vx + ax) * springCfg.damping;
+        s.vy = (s.vy + ay) * springCfg.damping;
+        s.x += s.vx;
+        s.y += s.vy;
+
+        el.style.transform = `translate3d(${s.x}px, ${s.y}px, 0) rotate(${getComputedStyle(el).getPropertyValue('--rot') || '0deg'})`;
+      });
+
+      requestAnimationFrame(lilyTick);
+    }
+    // Keep centers fresh on resize (and once after fonts settle)
+    window.addEventListener('resize', ()=>{ updateCenters(); });
+    setTimeout(updateCenters, 400);
+    requestAnimationFrame(lilyTick);
+
+const PROJECTS=[
       {id:'design-systems',title:'Monet UI System',category:'designer',year:'2025',blurb:'A modern design system inspired by watercolor textures and soft gradients.',
        description:'Describe the problem, your role, constraints, process, and results.\n\nAdd links and a file embed on the right.',
        embedSrc:'assets/sample.pdf',links:[{label:'Case Study',href:'#'},{label:'Figma',href:'#'}],height:'tall'},

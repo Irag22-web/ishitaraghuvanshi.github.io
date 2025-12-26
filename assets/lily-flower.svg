@@ -1,27 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
   <defs>
-    <radialGradient id="petal" cx="35%" cy="30%" r="75%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="55%" stop-color="#ca7487" stop-opacity="0.55"/>
+    <radialGradient id="petal" cx="35%" cy="30%" r="78%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+      <stop offset="45%" stop-color="#ca7487" stop-opacity="0.58"/>
       <stop offset="100%" stop-color="#ca7487" stop-opacity="0.0"/>
     </radialGradient>
-    <radialGradient id="center" cx="45%" cy="45%" r="65%">
+    <radialGradient id="center" cx="45%" cy="45%" r="68%">
       <stop offset="0%" stop-color="#fff7d6" stop-opacity="1"/>
       <stop offset="55%" stop-color="#d8b152" stop-opacity="0.92"/>
       <stop offset="100%" stop-color="#d8b152" stop-opacity="0.0"/>
     </radialGradient>
-    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.4"/></filter>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.6"/>
+    </filter>
   </defs>
-  <g opacity="0.92">
-    <path d="M150 52 C126 78 122 108 150 128 C178 108 174 78 150 52Z" fill="url(#petal)" filter="url(#blur)"/>
-    <path d="M248 150 C222 126 192 122 172 150 C192 178 222 174 248 150Z" fill="url(#petal)" filter="url(#blur)"/>
-    <path d="M150 248 C174 222 178 192 150 172 C122 192 126 222 150 248Z" fill="url(#petal)" filter="url(#blur)"/>
-    <path d="M52 150 C78 174 108 178 128 150 C108 122 78 126 52 150Z" fill="url(#petal)" filter="url(#blur)"/>
-    <path d="M214 86 C188 92 170 110 176 136 C202 130 220 112 214 86Z" fill="url(#petal)" opacity="0.9"/>
-    <path d="M214 214 C220 188 202 170 176 176 C170 202 188 220 214 214Z" fill="url(#petal)" opacity="0.9"/>
-    <path d="M86 214 C112 220 130 202 124 176 C98 182 80 200 86 214Z" fill="url(#petal)" opacity="0.9"/>
-    <path d="M86 86 C80 112 98 130 124 124 C130 98 112 80 86 86Z" fill="url(#petal)" opacity="0.9"/>
+
+  <!-- Big outer petals (larger + more open) -->
+  <g opacity="0.94">
+    <path d="M160 42
+             C124 80 120 122 160 150
+             C200 122 196 80 160 42Z"
+          fill="url(#petal)" filter="url(#blur)"/>
+    <path d="M278 160
+             C240 124 198 120 170 160
+             C198 200 240 196 278 160Z"
+          fill="url(#petal)" filter="url(#blur)"/>
+    <path d="M160 278
+             C196 240 200 198 160 170
+             C120 198 124 240 160 278Z"
+          fill="url(#petal)" filter="url(#blur)"/>
+    <path d="M42 160
+             C80 196 122 200 150 160
+             C122 120 80 124 42 160Z"
+          fill="url(#petal)" filter="url(#blur)"/>
+
+    <!-- diagonals, also larger -->
+    <path d="M240 80
+             C206 90 182 116 190 150
+             C224 140 250 114 240 80Z"
+          fill="url(#petal)" opacity="0.92"/>
+    <path d="M240 240
+             C250 206 224 182 190 190
+             C182 224 206 250 240 240Z"
+          fill="url(#petal)" opacity="0.92"/>
+    <path d="M80 240
+             C114 250 138 224 130 190
+             C96 200 70 226 80 240Z"
+          fill="url(#petal)" opacity="0.92"/>
+    <path d="M80 80
+             C70 114 96 138 130 130
+             C138 96 114 70 80 80Z"
+          fill="url(#petal)" opacity="0.92"/>
   </g>
-  <circle cx="150" cy="150" r="46" fill="url(#center)" filter="url(#blur)" opacity="0.98"/>
-  <circle cx="150" cy="150" r="18" fill="#d8b152" fill-opacity="0.55"/>
+
+  <!-- center -->
+  <circle cx="160" cy="160" r="54" fill="url(#center)" filter="url(#blur)" opacity="0.98"/>
+  <circle cx="160" cy="160" r="22" fill="#d8b152" fill-opacity="0.55"/>
 </svg>
