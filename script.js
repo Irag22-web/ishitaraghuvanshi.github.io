@@ -1,7 +1,7 @@
 const COLORS={designer:['#81a6de','#456ab5'],healthcare:['#689139','#d8b152'],community:['#ca7487','#d8b152'],research:['#456ab5','#81a6de'],impact:['#d8b152','#ca7487']};
 const CATEGORY_LABELS={designer:'Designer',healthcare:'Healthcare Innovator',community:'Community Advocate',research:'Biomedical Researcher',impact:'Impact Strategist'};
 
-const PROJECTS=[
+const DEFAULT_PROJECTS=[
   {id:'design-systems',title:'Monet UI System',category:'designer',year:'2025',blurb:'A modern design system inspired by watercolor textures and soft gradients.',
    description:'Describe the problem, your role, constraints, process, and results.\n\nAdd links and a file embed on the right.',
    embedSrc:'assets/sample.pdf',links:[{label:'Case Study',href:'#'},{label:'Figma',href:'#'}],height:'tall'},
@@ -14,6 +14,58 @@ const PROJECTS=[
   {id:'impact-strategy',title:'Impact Strategy Playbook',category:'impact',year:'2024',blurb:'A strategy framework for prioritizing interventions and tracking outcomes.',
    description:'Show how you set goals, built metrics, and aligned stakeholders.',embedSrc:'assets/sample.pdf',links:[{label:'Framework',href:'#'}],height:'tall'},
 ];
+
+// -------- Projects persistence (local) --------
+// If you add/edit projects via the Admin panel, they are saved to localStorage for THIS browser.
+// To publish those changes for everyone, use "Export JSON" and commit the downloaded file,
+// then set LOAD_PROJECTS_FROM_JSON = true and keep projects.json in your repo.
+const STORAGE_KEY = "portfolioProjects.v1";
+const PROJECTS_JSON_PATH = "projects.json"; // optional
+const LOAD_PROJECTS_FROM_JSON = false;       // set true if you commit projects.json
+
+let projects = null;
+
+function safeJsonParse(text){
+  try { return JSON.parse(text); } catch { return null; }
+}
+
+async function loadProjects(){
+  // 1) optional JSON file
+  if (LOAD_PROJECTS_FROM_JSON){
+    try{
+      const res = await fetch(PROJECTS_JSON_PATH, { cache: "no-store" });
+      if(res.ok){
+        const data = await res.json();
+        if(Array.isArray(data)) return data;
+      }
+    }catch{}
+  }
+
+  // 2) localStorage override
+  const saved = safeJsonParse(localStorage.getItem(STORAGE_KEY) || "");
+  if (Array.isArray(saved) && saved.length) return saved;
+
+  // 3) fallback default
+  return DEFAULT_PROJECTS;
+}
+
+function saveProjects(next){
+  projects = next;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+}
+
+// -------- Tile gradient opacity helpers --------
+function hexToRgba(hex, a){
+  const h = hex.replace("#","").trim();
+  const full = h.length === 3 ? h.split("").map(c=>c+c).join("") : h;
+  const n = parseInt(full, 16);
+  const r = (n >> 16) & 255;
+  const g = (n >> 8) & 255;
+  const b = n & 255;
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+
 
 // Cursor-reveal menu (near top-right)
 const menuWrap=document.getElementById('menuWrap');
@@ -59,9 +111,13 @@ requestAnimationFrame(updateMelt);
 const masonry=document.getElementById('masonry');
 const gradientForCategory=(cat)=>{
   const pair=COLORS[cat]||['#81a6de','#ca7487'];
-  return `radial-gradient(120% 90% at 25% 20%, ${pair[0]}55, transparent 55%),
-          radial-gradient(90% 70% at 70% 60%, ${pair[1]}55, transparent 60%),
-          radial-gradient(120% 90% at 40% 85%, #ffffff16, transparent 60%)`;
+  // Higher-opacity gradients (less "glassy")
+  const a1 = 0.78;
+  const a2 = 0.72;
+  const a3 = 0.22;
+  return `radial-gradient(120% 90% at 25% 20%, ${hexToRgba(pair[0], a1)}, transparent 55%),
+          radial-gradient(90% 70% at 70% 60%, ${hexToRgba(pair[1], a2)}, transparent 60%),
+          radial-gradient(120% 90% at 40% 85%, ${hexToRgba('#ffffff', a3)}, transparent 60%)`;
 };
 const tileHeightClass=(h)=>h==='tall'?'tile--tall':h==='short'?'tile--short':'tile--medium';
 const styleEl=document.createElement('style');
@@ -101,7 +157,10 @@ function renderTiles(items){
     masonry.appendChild(tile);
   });
 }
-renderTiles(PROJECTS);
+(async function init(){
+  projects = await loadProjects();
+  renderTiles(projects);
+})();
 
 // Detail view
 const detail=document.getElementById('detail');
@@ -113,7 +172,7 @@ const detailFrame=document.getElementById('detailFrame');
 const backBtn=document.getElementById('backBtn');
 
 function openDetail(projectId){
-  const p=PROJECTS.find(x=>x.id===projectId); if(!p) return;
+  const p=projects.find(x=>x.id===projectId); if(!p) return;
   document.querySelector('.gallery').classList.add('hidden');
   detail.classList.remove('hidden');
   detailTitle.textContent=p.title;
@@ -140,5 +199,288 @@ backBtn.addEventListener('click',closeDetail);
 document.querySelectorAll('.taglink').forEach(a=>{
   a.addEventListener('click',()=>setTimeout(()=>document.getElementById('projects').scrollIntoView({behavior:'smooth'}),60));
 });
+
+
+
+// ---------------- Admin panel (client-side) ----------------
+// IMPORTANT: On a static GitHub Pages site, this is NOT real security.
+// It only hides the UI and stores edits in localStorage for your browser.
+// For real security + write access, use a backend/CMS (Netlify CMS, Decap CMS, etc.).
+const ADMIN_SESSION_KEY = "portfolioAdmin.authed";
+const ADMIN_PASSWORD_HASH = "REPLACE_WITH_YOUR_SHA256_HASH"; 
+// How to set:
+// 1) Open your site, press F12 -> Console
+// 2) Run:  await window.__hash("your-new-password")
+// 3) Copy the printed hash string into ADMIN_PASSWORD_HASH above.
+
+window.__hash = async (pw) => {
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  const arr = Array.from(new Uint8Array(buf));
+  const hex = arr.map(b=>b.toString(16).padStart(2,"0")).join("");
+  console.log(hex);
+  return hex;
+};
+
+const adminFab = document.getElementById("adminFab");
+const adminOverlay = document.getElementById("adminOverlay");
+const adminClose = document.getElementById("adminClose");
+const adminLoginOverlay = document.getElementById("adminLoginOverlay");
+const adminLoginForm = document.getElementById("adminLoginForm");
+const adminPw = document.getElementById("adminPw");
+const adminLoginMsg = document.getElementById("adminLoginMsg");
+
+const form = {
+  id: document.getElementById("p_id"),
+  title: document.getElementById("p_title"),
+  category: document.getElementById("p_category"),
+  year: document.getElementById("p_year"),
+  blurb: document.getElementById("p_blurb"),
+  description: document.getElementById("p_description"),
+  embedSrc: document.getElementById("p_embedSrc"),
+  links: document.getElementById("p_links"),
+  height: document.getElementById("p_height"),
+};
+
+const adminList = document.getElementById("adminList");
+const adminSaveBtn = document.getElementById("adminSave");
+const adminResetBtn = document.getElementById("adminReset");
+const adminDeleteBtn = document.getElementById("adminDelete");
+const adminExportBtn = document.getElementById("adminExport");
+const adminImportBtn = document.getElementById("adminImport");
+const adminImportFile = document.getElementById("adminImportFile");
+const adminClearLocalBtn = document.getElementById("adminClearLocal");
+
+let editingId = null;
+
+function isAuthed(){
+  return sessionStorage.getItem(ADMIN_SESSION_KEY) === "1";
+}
+function setAuthed(v){
+  if(v) sessionStorage.setItem(ADMIN_SESSION_KEY, "1");
+  else sessionStorage.removeItem(ADMIN_SESSION_KEY);
+  adminFab.classList.toggle("visible", isAuthed());
+}
+
+async function checkPassword(pw){
+  if (!ADMIN_PASSWORD_HASH || ADMIN_PASSWORD_HASH === "REPLACE_WITH_YOUR_SHA256_HASH") return false;
+  const hash = await window.__hash(pw);
+  return hash === ADMIN_PASSWORD_HASH;
+}
+
+function openAdmin(){
+  if(!isAuthed()){
+    adminLoginOverlay.classList.add("open");
+    adminPw.value = "";
+    adminPw.focus();
+    adminLoginMsg.textContent = "";
+    return;
+  }
+  adminOverlay.classList.add("open");
+  renderAdminList();
+}
+
+function closeAdmin(){
+  adminOverlay.classList.remove("open");
+}
+function closeLogin(){
+  adminLoginOverlay.classList.remove("open");
+}
+
+adminFab?.addEventListener("click", openAdmin);
+adminClose?.addEventListener("click", closeAdmin);
+adminOverlay?.addEventListener("click", (e)=>{ if(e.target === adminOverlay) closeAdmin(); });
+
+adminLoginOverlay?.addEventListener("click", (e)=>{ if(e.target === adminLoginOverlay) closeLogin(); });
+
+adminLoginForm?.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const pw = adminPw.value || "";
+  const ok = await checkPassword(pw);
+  if(ok){
+    setAuthed(true);
+    closeLogin();
+    openAdmin();
+  }else{
+    adminLoginMsg.textContent = "Incorrect password.";
+  }
+});
+
+// Secret shortcut: Ctrl/⌘ + Shift + A
+document.addEventListener("keydown", (e)=>{
+  const isMac = navigator.platform.toUpperCase().includes("MAC");
+  const mod = isMac ? e.metaKey : e.ctrlKey;
+  if(mod && e.shiftKey && (e.key.toLowerCase() === "a")){
+    e.preventDefault();
+    openAdmin();
+  }
+});
+
+// Also: triple click your name
+const heroName = document.querySelector(".hero-name");
+heroName?.addEventListener("click", (e)=>{
+  if(e.detail === 3) openAdmin();
+});
+
+// ---------- Admin CRUD ----------
+function clearForm(){
+  editingId = null;
+  form.id.value = "";
+  form.title.value = "";
+  form.category.value = "designer";
+  form.year.value = "";
+  form.blurb.value = "";
+  form.description.value = "";
+  form.embedSrc.value = "";
+  form.links.value = "";
+  form.height.value = "medium";
+  adminDeleteBtn.disabled = true;
+}
+
+function parseLinks(text){
+  // One per line: Label | https://...
+  const lines = (text || "").split("\n").map(s=>s.trim()).filter(Boolean);
+  return lines.map(line=>{
+    const [label, href] = line.split("|").map(s=>s.trim());
+    if(!href) return null;
+    return { label: label || "Link", href };
+  }).filter(Boolean);
+}
+
+function toSlug(text){
+  return (text || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+    .slice(0, 48) || ("p-" + Math.random().toString(16).slice(2,8));
+}
+
+function upsertProject(){
+  const id = (editingId || form.id.value || toSlug(form.title.value));
+  const next = {
+    id,
+    title: form.title.value.trim() || "Untitled Project",
+    category: form.category.value,
+    year: form.year.value.trim(),
+    blurb: form.blurb.value.trim(),
+    description: form.description.value.trim(),
+    embedSrc: form.embedSrc.value.trim(),
+    links: parseLinks(form.links.value),
+    height: form.height.value,
+  };
+
+  // Update or insert
+  const idx = projects.findIndex(p=>p.id===id);
+  const updated = [...projects];
+  if(idx >= 0) updated[idx] = next;
+  else updated.unshift(next);
+
+  saveProjects(updated);
+  renderTiles(updated);
+  renderAdminList();
+  clearForm();
+}
+
+function deleteProject(){
+  if(!editingId) return;
+  const updated = projects.filter(p=>p.id !== editingId);
+  saveProjects(updated);
+  renderTiles(updated);
+  renderAdminList();
+  clearForm();
+}
+
+function editProject(id){
+  const p = projects.find(x=>x.id===id);
+  if(!p) return;
+  editingId = id;
+  form.id.value = p.id || "";
+  form.title.value = p.title || "";
+  form.category.value = p.category || "designer";
+  form.year.value = p.year || "";
+  form.blurb.value = p.blurb || "";
+  form.description.value = p.description || "";
+  form.embedSrc.value = p.embedSrc || "";
+  form.links.value = (p.links||[]).map(l=>`${l.label} | ${l.href}`).join("\n");
+  form.height.value = p.height || "medium";
+  adminDeleteBtn.disabled = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderAdminList(){
+  if(!adminList) return;
+  adminList.innerHTML = "";
+  const items = projects || [];
+  items.forEach(p=>{
+    const row = document.createElement("div");
+    row.className = "admin-item";
+    row.innerHTML = `
+      <div>
+        <strong>${p.title || "Untitled"}</strong>
+        <small>${(CATEGORY_LABELS[p.category]||"Project")} • ${p.year || ""} • id: ${p.id}</small>
+      </div>
+      <div class="admin-actions">
+        <button class="btn btn-pill" data-act="edit" data-id="${p.id}">Edit</button>
+        <button class="btn btn-pill" data-act="open" data-id="${p.id}">Open</button>
+      </div>
+    `;
+    row.addEventListener("click",(e)=>{
+      const btn = e.target.closest("button[data-act]");
+      if(!btn) return;
+      const act = btn.dataset.act;
+      const id = btn.dataset.id;
+      if(act==="edit") editProject(id);
+      if(act==="open") openDetail(id);
+    });
+    adminList.appendChild(row);
+  });
+}
+
+adminSaveBtn?.addEventListener("click", upsertProject);
+adminResetBtn?.addEventListener("click", clearForm);
+adminDeleteBtn?.addEventListener("click", deleteProject);
+
+adminExportBtn?.addEventListener("click", ()=>{
+  const blob = new Blob([JSON.stringify(projects, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "projects.json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+
+adminImportBtn?.addEventListener("click", ()=> adminImportFile.click());
+adminImportFile?.addEventListener("change", async ()=>{
+  const file = adminImportFile.files?.[0];
+  if(!file) return;
+  const text = await file.text();
+  const data = safeJsonParse(text);
+  if(Array.isArray(data)){
+    saveProjects(data);
+    renderTiles(data);
+    renderAdminList();
+    clearForm();
+  }else{
+    alert("That file doesn't look like a projects JSON array.");
+  }
+  adminImportFile.value = "";
+});
+
+adminClearLocalBtn?.addEventListener("click", ()=>{
+  if(!confirm("Clear locally saved projects for this browser and revert to defaults?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  (async ()=>{
+    projects = await loadProjects();
+    renderTiles(projects);
+    renderAdminList();
+    clearForm();
+  })();
+});
+
+// Set initial auth state (session-based)
+setAuthed(isAuthed());
 
 document.getElementById('year').textContent=String(new Date().getFullYear());
