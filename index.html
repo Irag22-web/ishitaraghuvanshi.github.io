@@ -95,7 +95,7 @@
     .about-card{display:grid;grid-template-columns:1fr;gap:16px;border-radius:var(--radius-xl);border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);box-shadow:var(--shadow);backdrop-filter:blur(10px);padding:18px}
     @media (min-width:860px){.about-card{grid-template-columns:.8fr 1.2fr;gap:18px;padding:20px}}
     .about-photo-wrap{border-radius:var(--radius-xl);border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.35);display:grid;place-items:center;padding:12px;overflow:hidden}
-    .about-photo{width:100%;max-width:420px;height:auto;opacity:.95;filter:grayscale(1) contrast(1.05)}
+    .about-photo{width:clamp(260px, 38vw, 560 px);max-width:none;height:auto;opacity:.95;filter:grayscale(1) contrast(1.05)}
     .handwritten{font-family:Caveat,cursive;font-size:clamp(20px,2.3vw,30px);line-height:1.25;margin:10px 0 6px;color:rgba(243,245,255,.92)}
     .small{margin:0;color:var(--muted)}
     .footer{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;color:var(--muted)}
