@@ -22,7 +22,7 @@
     <filter id="wcBlur" x="-25%" y="-25%" width="150%" height="150%">
       <feGaussianBlur stdDeviation="2.2"/>
     </filter>
-    <filter id="wcBlur2" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="wcBlur2" x="-0%" y="-0%" width="10%" height="10%">
       <feGaussianBlur stdDeviation="3.2"/>
     </filter>
   </defs>
