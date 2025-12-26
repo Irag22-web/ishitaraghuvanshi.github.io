@@ -120,14 +120,15 @@
 
   <div class="pond" aria-hidden="true">
     <img class="pond-item" data-speed="0.37" src="assets/lily-pad.svg" style="left:6%; top:10%; --size:250px; --rot:-8deg; --op:0.42;">
-    <img class="pond-item" data-speed="0.29" src="assets/lily-flower.svg" style="left:12%; top:18%; --size:192px; --rot:10deg; --op:0.44;">
+    <img class="pond-item" data-speed="0.29" src="assets/lily-flower.svg" style="left:12%; top:18%; --size:292px; --rot:10deg; --op:0.44;">
     <img class="pond-item" data-speed="0.36" src="assets/lily-pad.svg" style="left:78%; top:9%; --size:275px; --rot:6deg; --op:0.40;">
-    <img class="pond-item" data-speed="0.26" src="assets/lily-flower.svg" style="left:72%; top:18%; --size:184px; --rot:-10deg; --op:0.42;">
+    <img class="pond-item" data-speed="0.26" src="assets/lily-flower.svg" style="left:72%; top:18%; --size:284px; --rot:-10deg; --op:0.42;">
     <img class="pond-item" data-speed="0.32" src="assets/lily-pad.svg" style="left:82%; top:44%; --size:310px; --rot:-6deg;">
-    <img class="pond-item" data-speed="0.18" src="assets/lily-flower.svg" style="left:74%; top:52%; --size:192px; --rot:12deg; --op:0.46;">
+    <img class="pond-item" data-speed="0.18" src="assets/lily-flower.svg" style="left:74%; top:52%; --size:292px; --rot:12deg; --op:0.46;">
+    <img class="pond-item" data-speed="0.25" src="assets/lily-flower.svg" style="left:40%; top:40%; --size:288px; --rot:-12deg; --op:0.44;">
     <img class="pond-item" data-speed="0.2" src="assets/lily-pad.svg" style="left:10%; top:48%; --size:300px; --rot:9deg; --op:0.38;">
     <img class="pond-item" data-speed="0.3" src="assets/lily-pad.svg" style="left:58%; top:78%; --size:320px; --rot:4deg; --op:0.38;">
-    <img class="pond-item" data-speed="0.25" src="assets/lily-flower.svg" style="left:50%; top:84%; --size:188px; --rot:-12deg; --op:0.44;">
+    <img class="pond-item" data-speed="0.25" src="assets/lily-flower.svg" style="left:50%; top:84%; --size:288px; --rot:-12deg; --op:0.44;">
     <img class="pond-item" data-speed="0.3" src="assets/lily-pad.svg" style="left:22%; top:82%; --size:265px; --rot:-14deg; --op:0.36;">
   </div>
 
@@ -252,8 +253,8 @@
 
         if(dist < maxDist){
           const force = (maxDist - dist) / maxDist; // 0..1
-          s.tx = (-dx) * force * (maxForce / maxDist) * maxDist * 0.12;
-          s.ty = (-dy) * force * (maxForce / maxDist) * maxDist * 0.12;
+          s.tx = (-dx) * force * (maxForce / maxDist) * maxDist * 0.1;
+          s.ty = (-dy) * force * (maxForce / maxDist) * maxDist * 0.1;
         } else {
           s.tx = 0;
           s.ty = 0;
