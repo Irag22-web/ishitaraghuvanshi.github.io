@@ -72,7 +72,7 @@
   </g>
 
   <!-- Center + stamens -->
-  <circle cx="180" cy="180" r="64" fill="url(#coreGlow)" opacity="0.98"/>
+  <circle cx="180" cy="180" r="44" fill="url(#coreGlow)" opacity="0.95"/>
   <g stroke-linecap="round" fill="none" opacity="0.95">
     <path d="M180 172 C170 160 160 154 150 150" stroke="#ffd05a" stroke-width="6"/>
     <path d="M180 172 C190 160 200 154 210 150" stroke="#ffd05a" stroke-width="6"/>
@@ -83,5 +83,5 @@
     <path d="M162 190 C158 196 160 202 168 206" stroke="#ffbf38" stroke-width="4" opacity="0.85"/>
     <path d="M198 190 C202 196 200 202 192 206" stroke="#ffbf38" stroke-width="4" opacity="0.85"/>
   </g>
-  <circle cx="180" cy="188" r="10" fill="#d8b152" fill-opacity="0.55"/>
+  <circle cx="180" cy="188" r="6" fill="#d8b152" fill-opacity="0.5"/>
 </svg>
