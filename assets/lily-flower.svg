@@ -1,59 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360">
   <defs>
-    <radialGradient id="petal" cx="35%" cy="30%" r="78%">
+    <radialGradient id="petalPink" cx="45%" cy="35%" r="75%">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
-      <stop offset="45%" stop-color="#ca7487" stop-opacity="0.58"/>
+      <stop offset="45%" stop-color="#f7c7d1" stop-opacity="0.92"/>
+      <stop offset="75%" stop-color="#ca7487" stop-opacity="0.62"/>
       <stop offset="100%" stop-color="#ca7487" stop-opacity="0.0"/>
     </radialGradient>
-    <radialGradient id="center" cx="45%" cy="45%" r="68%">
-      <stop offset="0%" stop-color="#fff7d6" stop-opacity="1"/>
-      <stop offset="55%" stop-color="#d8b152" stop-opacity="0.92"/>
+
+    <radialGradient id="petalSoft" cx="55%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="55%" stop-color="#f4b9c7" stop-opacity="0.70"/>
+      <stop offset="100%" stop-color="#ca7487" stop-opacity="0.0"/>
+    </radialGradient>
+
+    <radialGradient id="coreGlow" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#fff6c4" stop-opacity="1"/>
+      <stop offset="55%" stop-color="#ffd05a" stop-opacity="0.95"/>
       <stop offset="100%" stop-color="#d8b152" stop-opacity="0.0"/>
     </radialGradient>
-    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="2.6"/>
+
+    <filter id="wcBlur" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+    <filter id="wcBlur2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.2"/>
     </filter>
   </defs>
 
-  <!-- Big outer petals (larger + more open) -->
-  <g opacity="0.94">
-    <path d="M160 42
-             C124 80 120 122 160 150
-             C200 122 196 80 160 42Z"
-          fill="url(#petal)" filter="url(#blur)"/>
-    <path d="M278 160
-             C240 124 198 120 170 160
-             C198 200 240 196 278 160Z"
-          fill="url(#petal)" filter="url(#blur)"/>
-    <path d="M160 278
-             C196 240 200 198 160 170
-             C120 198 124 240 160 278Z"
-          fill="url(#petal)" filter="url(#blur)"/>
-    <path d="M42 160
-             C80 196 122 200 150 160
-             C122 120 80 124 42 160Z"
-          fill="url(#petal)" filter="url(#blur)"/>
-
-    <!-- diagonals, also larger -->
-    <path d="M240 80
-             C206 90 182 116 190 150
-             C224 140 250 114 240 80Z"
-          fill="url(#petal)" opacity="0.92"/>
-    <path d="M240 240
-             C250 206 224 182 190 190
-             C182 224 206 250 240 240Z"
-          fill="url(#petal)" opacity="0.92"/>
-    <path d="M80 240
-             C114 250 138 224 130 190
-             C96 200 70 226 80 240Z"
-          fill="url(#petal)" opacity="0.92"/>
-    <path d="M80 80
-             C70 114 96 138 130 130
-             C138 96 114 70 80 80Z"
-          fill="url(#petal)" opacity="0.92"/>
+  <!-- Outer petals -->
+  <g opacity="0.96" filter="url(#wcBlur2)">
+    <path d="M180 34 C146 78 146 124 180 154 C214 124 214 78 180 34Z" fill="url(#petalPink)"/>
+    <path d="M276 64 C236 90 218 132 230 168 C266 152 292 112 276 64Z" fill="url(#petalPink)"/>
+    <path d="M326 150 C282 146 248 170 236 206 C276 218 318 198 326 150Z" fill="url(#petalPink)"/>
+    <path d="M300 252 C270 214 230 206 204 226 C226 254 264 280 300 252Z" fill="url(#petalPink)"/>
+    <path d="M210 326 C206 282 182 254 180 242 C166 256 144 286 150 326 C170 334 192 334 210 326Z" fill="url(#petalPink)"/>
+    <path d="M60 252 C96 280 134 254 156 226 C130 206 90 214 60 252Z" fill="url(#petalPink)"/>
+    <path d="M34 150 C42 198 84 218 124 206 C112 170 78 146 34 150Z" fill="url(#petalPink)"/>
+    <path d="M84 64 C68 112 94 152 130 168 C142 132 124 90 84 64Z" fill="url(#petalPink)"/>
+    <!-- extra diagonals -->
+    <path d="M248 46 C216 78 206 114 214 146 C246 124 262 90 248 46Z" fill="url(#petalSoft)" opacity="0.9"/>
+    <path d="M314 98 C280 112 258 140 252 174 C286 168 314 140 314 98Z" fill="url(#petalSoft)" opacity="0.88"/>
+    <path d="M112 46 C98 90 114 124 146 146 C154 114 144 78 112 46Z" fill="url(#petalSoft)" opacity="0.9"/>
+    <path d="M46 98 C46 140 74 168 108 174 C102 140 80 112 46 98Z" fill="url(#petalSoft)" opacity="0.88"/>
   </g>
 
-  <!-- center -->
-  <circle cx="160" cy="160" r="54" fill="url(#center)" filter="url(#blur)" opacity="0.98"/>
-  <circle cx="160" cy="160" r="22" fill="#d8b152" fill-opacity="0.55"/>
+  <!-- Mid petals -->
+  <g opacity="0.98" filter="url(#wcBlur)">
+    <path d="M180 72 C156 104 156 132 180 156 C204 132 204 104 180 72Z" fill="url(#petalSoft)"/>
+    <path d="M250 104 C222 116 210 140 214 164 C240 156 258 130 250 104Z" fill="url(#petalSoft)"/>
+    <path d="M288 162 C256 156 230 170 222 190 C250 198 280 188 288 162Z" fill="url(#petalSoft)"/>
+    <path d="M248 234 C232 206 206 198 188 210 C202 232 226 248 248 234Z" fill="url(#petalSoft)"/>
+    <path d="M180 288 C192 258 186 232 180 220 C174 232 168 258 180 288Z" fill="url(#petalSoft)"/>
+    <path d="M112 234 C134 248 158 232 172 210 C154 198 128 206 112 234Z" fill="url(#petalSoft)"/>
+    <path d="M72 162 C80 188 110 198 138 190 C130 170 104 156 72 162Z" fill="url(#petalSoft)"/>
+    <path d="M110 104 C102 130 120 156 146 164 C150 140 138 116 110 104Z" fill="url(#petalSoft)"/>
+  </g>
+
+  <!-- Center + stamens -->
+  <circle cx="180" cy="180" r="64" fill="url(#coreGlow)" opacity="0.98"/>
+  <g stroke-linecap="round" fill="none" opacity="0.95">
+    <path d="M180 172 C170 160 160 154 150 150" stroke="#ffd05a" stroke-width="6"/>
+    <path d="M180 172 C190 160 200 154 210 150" stroke="#ffd05a" stroke-width="6"/>
+    <path d="M180 176 C168 166 158 164 146 164" stroke="#ffbf38" stroke-width="5" opacity="0.9"/>
+    <path d="M180 176 C192 166 202 164 214 164" stroke="#ffbf38" stroke-width="5" opacity="0.9"/>
+    <path d="M180 182 C170 170 162 172 154 178" stroke="#ffae1a" stroke-width="4" opacity="0.88"/>
+    <path d="M180 182 C190 170 198 172 206 178" stroke="#ffae1a" stroke-width="4" opacity="0.88"/>
+    <path d="M162 190 C158 196 160 202 168 206" stroke="#ffbf38" stroke-width="4" opacity="0.85"/>
+    <path d="M198 190 C202 196 200 202 192 206" stroke="#ffbf38" stroke-width="4" opacity="0.85"/>
+  </g>
+  <circle cx="180" cy="188" r="10" fill="#d8b152" fill-opacity="0.55"/>
 </svg>
