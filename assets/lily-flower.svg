@@ -29,6 +29,21 @@
 
   <!-- Outer petals -->
   <g opacity="0.96" filter="url(#wcBlur2)">
+    <!-- extra lower petals for fuller bottom -->
+<path d="M140 300
+         C155 265 175 255 180 248
+         C165 255 145 270 140 300Z"
+      fill="url(#petalSoft)" opacity="0.9"/>
+
+<path d="M220 300
+         C205 265 185 255 180 248
+         C195 255 215 270 220 300Z"
+      fill="url(#petalSoft)" opacity="0.9"/>
+
+<path d="M165 318
+         C175 280 178 270 180 262
+         C182 270 185 280 195 318Z"
+      fill="url(#petalPink)" opacity="0.85"/>
     <path d="M180 34 C146 78 146 124 180 154 C214 124 214 78 180 34Z" fill="url(#petalPink)"/>
     <path d="M276 64 C236 90 218 132 230 168 C266 152 292 112 276 64Z" fill="url(#petalPink)"/>
     <path d="M326 150 C282 146 248 170 236 206 C276 218 318 198 326 150Z" fill="url(#petalPink)"/>
