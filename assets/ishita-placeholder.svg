@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900">
+  <rect width="900" height="900" fill="transparent"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="10">
+    <path d="M450 120c110 0 200 90 200 200s-90 200-200 200-200-90-200-200 90-200 200-200z" opacity="0.55"/>
+    <path d="M210 820c60-170 190-260 240-260s180 90 240 260" opacity="0.45"/>
+  </g>
+  <text x="50%" y="54%" text-anchor="middle" font-family="Inter, Arial" font-size="28" fill="#ffffff" fill-opacity="0.75">
+    Upload your transparent B&amp;W image
+  </text>
+  <text x="50%" y="58%" text-anchor="middle" font-family="Inter, Arial" font-size="16" fill="#ffffff" fill-opacity="0.55">
+    Replace assets/ishita-placeholder.svg
+  </text>
+</svg>

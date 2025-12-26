@@ -2,39 +2,157 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Your Name | Interactive Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ishita Raghuvanshi | Portfolio</title>
+
+  <!-- Fonts (handwritten + modern) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-gray-900 text-white font-sans">
 
-  <!-- Hero -->
-  <section class="h-screen flex flex-col justify-center items-center text-center">
-    <h1 class="text-5xl font-bold mb-4">Your Name</h1>
-    <p class="text-xl text-gray-400 mb-6">Builder • Creator • Strategist</p>
-    <button onclick="toggleAbout()" class="px-6 py-3 bg-blue-500 rounded-lg hover:bg-blue-600 transition">
-      Learn More
-    </button>
-  </section>
+<body>
+  <!-- SVG Filters: watercolor melt + subtle paper grain -->
+  <svg class="visually-hidden" aria-hidden="true">
+    <filter id="meltFilter">
+      <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="8" result="noise"/>
+      <feDisplacementMap id="displace" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
 
-  <!-- About -->
-  <section id="about" class="hidden fade-in px-8 py-20 max-w-3xl mx-auto">
-    <h2 class="text-3xl font-semibold mb-4">About Me</h2>
-    <p class="text-gray-300">
-      Write a short intro about who you are and what you build.
-    </p>
-  </section>
+    <filter id="grainFilter">
+      <feTurbulence type="turbulence" baseFrequency="0.75" numOctaves="2" seed="2" result="grain"/>
+      <feColorMatrix in="grain" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 .055 0" result="grainAlpha"/>
+      <feComposite in="grainAlpha" in2="SourceGraphic" operator="over"/>
+    </filter>
+  </svg>
 
-  <!-- Projects -->
-  <section class="fade-in px-8 py-20 max-w-4xl mx-auto">
-    <h2 class="text-3xl font-semibold mb-8">Projects</h2>
-    <div onclick="this.classList.toggle('open')" class="cursor-pointer bg-gray-800 p-6 rounded-xl transition">
-      <h3 class="text-xl font-semibold">Project One</h3>
-      <p class="details mt-2 text-gray-400">
-        Expanded project details appear here on click.
-      </p>
+  <!-- Background watercolor blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="blob b4"></div>
+    <div class="paper-grain"></div>
+  </div>
+
+  <!-- Cursor-reveal menu in upper-right -->
+  <header class="topbar">
+    <div class="menu-wrap" id="menuWrap">
+      <button class="btn btn-ghost menu-btn" id="menuBtn" aria-label="Open menu">
+        <span class="menu-icon"></span>
+        <span class="menu-label">Menu</span>
+      </button>
+
+      <nav class="menu" id="menu" aria-label="Site menu">
+        <a class="btn btn-pill" href="#projects" id="navProjects">Projects</a>
+        <a class="btn btn-pill" href="#about" id="navAbout">About Me</a>
+      </nav>
     </div>
-  </section>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="top" aria-label="Landing">
+      <div class="hero-inner">
+        <h1 class="hero-name melt-target" id="heroName">Ishita Raghuvanshi</h1>
+
+        <p class="hero-tags melt-target" id="heroTags">
+          <a class="taglink" href="#tag-designer" data-tag="designer">Designer</a>
+          <span class="dot">·</span>
+          <a class="taglink" href="#tag-healthcare" data-tag="healthcare">Healthcare Innovator</a>
+          <span class="dot">·</span>
+          <a class="taglink" href="#tag-community" data-tag="community">Community Advocate</a>
+          <span class="dot">·</span>
+          <a class="taglink" href="#tag-research" data-tag="research">Biomedical Researcher</a>
+          <span class="dot">·</span>
+          <a class="taglink" href="#tag-impact" data-tag="impact">Impact Strategist</a>
+        </p>
+
+        <div class="hero-hint">
+          <span class="hint-pill">Scroll</span>
+          <span class="hint-line"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY / PROJECT TILES -->
+    <section class="gallery" id="projects" aria-label="Project gallery">
+      <div class="gallery-head">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">A curated mosaic—click a tile to expand.</p>
+      </div>
+
+      <div id="masonry" class="masonry" aria-label="Masonry tiles"></div>
+    </section>
+
+    <!-- PROJECT DETAIL -->
+    <section class="detail hidden" id="detail" aria-label="Project detail view">
+      <div class="detail-top">
+        <button class="btn btn-ghost back-btn" id="backBtn" aria-label="Back to gallery">
+          <span class="back-arrow">←</span>
+          <span>Back</span>
+        </button>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-left">
+          <h2 class="detail-title" id="detailTitle">Project Title</h2>
+          <p class="detail-meta" id="detailMeta">Category • Year</p>
+          <p class="detail-desc" id="detailDesc">
+            Project description goes here. Replace the content in <code>script.js</code>.
+          </p>
+
+          <div class="detail-links" id="detailLinks"></div>
+        </div>
+
+        <div class="detail-right">
+          <div class="embed-card">
+            <div class="embed-top">
+              <span class="embed-pill">Embedded File</span>
+              <span class="embed-note">Replace iframe <code>src</code> in <code>script.js</code></span>
+            </div>
+            <iframe id="detailFrame" title="Embedded project file" class="embed-frame" src="assets/sample.pdf"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about" aria-label="About me">
+      <div class="about-inner">
+        <div class="about-card">
+          <div class="about-photo-wrap">
+            <!-- Replace assets/ishita.png with your transparent B&W image -->
+            <img class="about-photo" src="assets/ishita-placeholder.svg" alt="Portrait of Ishita (placeholder)" />
+          </div>
+
+          <div class="about-text">
+            <h2 class="section-title">About Me</h2>
+            <p class="handwritten">
+              Hi — I’m Ishita. I design with intention, build for health and equity, and love turning
+              messy problems into clear, human systems. I’m driven by community, grounded in research,
+              and always chasing impact.
+            </p>
+            <p class="small">
+              (Replace this handwritten intro in <code>index.html</code>. Replace the image in <code>assets/</code>.)
+            </p>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <span>© <span id="year"></span> Ishita Raghuvanshi</span>
+          <span class="footer-dot">•</span>
+          <a class="footer-link" href="#top">Back to top</a>
+        </footer>
+      </div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
