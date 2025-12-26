@@ -2,18 +2,16 @@ const COLORS={designer:['#81a6de','#456ab5'],healthcare:['#689139','#d8b152'],co
 const CATEGORY_LABELS={designer:'Designer',healthcare:'Healthcare Innovator',community:'Community Advocate',research:'Biomedical Researcher',impact:'Impact Strategist'};
 
 const PROJECTS=[
-  {id:'CAD-projects',title:'CAD Portfolio 2025',category:'designer',year:'2025',blurb:'3D modeling and rendering through Fusion 360.',
-   description:'Computer aided design projects done on Fusion 360 and cloud rendered. This portfolio includes modeling of healthcare tools and devices as well as some fun furniture projects.',
-   embedSrc:'assets/CAD portfolio_Ishita Raghuvanshi.pdf',links:[{label:'Case Study',href:'#'},{label:'Figma',href:'#'}],height:'tall'},
-  {id:'care-pathways',title:'Care Pathways Prototype',category:'healthcare',year:'2024',blurb:'A patient-centered workflow prototype for simplified onboarding and follow-ups.',
-   description:'Explain the healthcare context, your research insights, and what you built.',embedSrc:'assets/sample.pdf',links:[{label:'Deck',href:'#'}],height:'medium'},
-  {id:'community-program',title:'Community Outreach Program',category:'community',year:'2023',blurb:'A scalable initiative focused on access, inclusion, and engagement.',
-   description:'Highlight how you built relationships, organized activities, and measured impact.',embedSrc:'assets/sample.pdf',links:[{label:'Write-up',href:'#'}],height:'short'},
-  {id:'biomed-study',title:'Biomedical Study Snapshot',category:'research',year:'2025',blurb:'A research project summary with methods, visuals, and key findings.',
-   description:'Summarize methods, hypothesis, and results. Include a poster or PDF on the right.',embedSrc:'assets/sample.pdf',links:[{label:'Poster',href:'#'}],height:'medium'},
-  {id:'impact-strategy',title:'Impact Strategy Playbook',category:'impact',year:'2024',blurb:'A strategy framework for prioritizing interventions and tracking outcomes.',
-   description:'Show how you set goals, built metrics, and aligned stakeholders.',embedSrc:'assets/sample.pdf',links:[{label:'Framework',href:'#'}],height:'tall'},
-];
+      {id:'CAD-projects',title:'CAD Portfolio 2025',category:'designer',year:'2025',blurb:'3D modeling and rendering through Fusion 360.', description:'Computer aided design projects done on Fusion 360 and cloud rendered. This portfolio includes modeling of healthcare tools and devices as well as some fun furniture projects.', embedSrc:'assets/CAD portfolio_Ishita Raghuvanshi.pdf',links:[{label:'Autodesk Fusion 360',href:'#'}],height:'tall'},
+      {id:'care-pathways',title:'Care Pathways Prototype',category:'healthcare',year:'2024',blurb:'A patient-centered workflow prototype for simplified onboarding and follow-ups.',
+       description:'Explain the healthcare context, your research insights, and what you built.',embedSrc:'assets/sample.pdf', embedSrc:'assets/sample.pdf', links:[{label:'Pitch Deck',href:'#'}, {label:'CAD drawings',href:'#'}],height:'medium'},
+      {id:'Games',title:'Masaledar Ciphers: Bollywood Jeopardy',category:'community',year:'2025',blurb:'Figma developed jeopardy board for bollywood songs',
+       description:'Choose between categories .',embedSrc:'<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/uK40tsx1i7MOVQ5PSENvWN/Masaledar-Ciphers?node-id=1-2&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=35%3A182&embed-host=share" allowfullscreen></iframe>',links:[{label:'Figma Prototype',href:'#'}],height:'short'},
+      {id:'biomed-study',title:'Biomedical Study Snapshot',category:'research',year:'2025',blurb:'A research project summary with methods, visuals, and key findings.',
+       description:'Summarize methods, hypothesis, and results. Include a poster or PDF on the right.',embedSrc:'assets/sample.pdf',links:[{label:'Poster',href:'#'}],height:'medium'},
+      {id:'impact-strategy',title:'Impact Strategy Playbook',category:'impact',year:'2024',blurb:'A strategy framework for prioritizing interventions and tracking outcomes.',
+       description:'Show how you set goals, built metrics, and aligned stakeholders.',embedSrc:'assets/sample.pdf',links:[{label:'Framework',href:'#'}],height:'tall'},
+    ];
 
 // Cursor-reveal menu (near top-right)
 const menuWrap=document.getElementById('menuWrap');
