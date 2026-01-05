@@ -2,15 +2,53 @@ const COLORS={designer:['#81a6de','#456ab5'],healthcare:['#689139','#d8b152'],co
 const CATEGORY_LABELS={designer:'Designer',healthcare:'Healthcare Innovator',community:'Community Advocate',research:'Biomedical Researcher',impact:'Impact Strategist'};
 
 const PROJECTS=[
-      {id:'CAD-projects',title:'CAD Portfolio 2025',category:'designer',year:'2025',blurb:'3D modeling and rendering through Fusion 360.', description:'Computer aided design projects done on Fusion 360 and cloud rendered. This portfolio includes modeling of healthcare tools and devices as well as some fun furniture projects.', embedSrc:'assets/CAD portfolio_Ishita Raghuvanshi.pdf',links:[{label:'Autodesk Fusion 360',href:'#'}],height:'tall'},
-      {id:'Stellarstacker',title:'Stellar Stacker',category:'healthcare',year:'2025',blurb:'Long-Term cold storage organizer for breastmilk.',
-       description:'Breastmilk is considered "Liquid gold," and mothers freezer between 10-15 breastmilk bags per week to sustain feeding. However, with current freezer infrastructures bags often freeze in warped manners and are accompanied with burdensome manual tracking. Parents using expressed breastmilk need a simple system that scales, preserves timestamps, and enforces first-in first-out use. So we created Stellar stacker.',embedSrc:'assets/Stellar Stacker.pdf', links:[{label:'Pitch Deck',href:'#'}, {label:'CAD drawings',href:'#'}],height:'medium'},
-      {id:'Games',title:'Masaledar Ciphers: Bollywood Jeopardy',year:'2025',blurb:'Figma developed jeopardy board for bollywood songs',
-       description:'Choose between categories .',embedSrc:'<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/proto/uK40tsx1i7MOVQ5PSENvWN/Masaledar-Ciphers?node-id=1-2&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=35%3A182&embed-host=share" allowfullscreen></iframe>',links:[{label:'Figma Prototype',href:'#'}],height:'short'},
-      {id:'biomed-study',title:'Biomedical Study Snapshot',category:'research',year:'2025',blurb:'A research project summary with methods, visuals, and key findings.',
-       description:'Summarize methods, hypothesis, and results. Include a poster or PDF on the right.',embedSrc:'assets/sample.pdf',links:[{label:'Poster',href:'#'}],height:'medium'},
-      {id:'impact-strategy',title:'Impact Strategy Playbook',category:'impact',year:'2024',blurb:'A strategy framework for prioritizing interventions and tracking outcomes.',
-       description:'Show how you set goals, built metrics, and aligned stakeholders.',embedSrc:'assets/sample.pdf',links:[{label:'Framework',href:'#'}],height:'tall'},
+  {id:'CAD-projects',title:'CAD Portfolio 2025',category:'designer',year:'2025',
+    blurb:'3D modeling and rendering through Fusion 360.',
+    description:'Computer aided design projects done on Fusion 360 and cloud rendered. This portfolio includes modeling of healthcare tools and devices as well as some fun furniture projects.',
+    embeds:[
+      {label:'Portfolio PDF', type:'pdf', src:'assets/CAD portfolio_Ishita Raghuvanshi.pdf'}
+    ],
+    links:[{label:'Autodesk Fusion 360',href:'#'}],
+    height:'tall'
+  },
+  {id:'Stellarstacker',title:'Stellar Stacker',category:'healthcare',year:'2025',
+    blurb:'Long-Term cold storage organizer for breastmilk.',
+    description:'Breastmilk is considered "Liquid gold," and mothers freezer between 10-15 breastmilk bags per week to sustain feeding. However, with current freezer infrastructures bags often freeze in warped manners and are accompanied with burdensome manual tracking. Parents using expressed breastmilk need a simple system that scales, preserves timestamps, and enforces first-in first-out use. So we created Stellar stacker.',
+    embeds:[
+      {label:'Project PDF', type:'pdf', src:'assets/Stellar Stacker.pdf'},
+      {label:'CAD drawings', type:'pdf', src:'assets/Stellar Stacker drawings.pdf'},
+       {label:'Poster presentation', type:'pdf', src:'assets/Team Milkyway Stellar Stacker poster.pdf'}// swap to your actual CAD PDF when ready
+    ],
+    links:[{label:'Pitch Deck',href:'#'}, {label:'CAD drawings',href:'#'}],
+    height:'medium'
+  },
+  {id:'Games',title:'Masaledar Ciphers: Bollywood Jeopardy',category:'designer',year:'2025',
+    blurb:'Figma developed jeopardy board for bollywood songs',
+    description:'Choose between categories.',
+    embeds:[
+      {label:'Figma Prototype', type:'figma', src:'https://embed.figma.com/proto/uK40tsx1i7MOVQ5PSENvWN/Masaledar-Ciphers?node-id=1-2&p=f&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=35%3A182&embed-host=share'}
+    ],
+    links:[{label:'Open in Figma',href:'https://www.figma.com/'}],
+    height:'short'
+  },
+  {id:'ID_design',title:'Veilora privacy screen design project',category:'Design',year:'2025',
+    blurb:'Designing privacy screen for high density residences',
+    description:'Low resource privacy screen design that blends into the home setting for people in high density settings like Dharavi, Mumbai. Designed for Industrial Design course.',
+    embeds:[
+      {label:'Poster', type:'pdf', src:'assets/Veilora-privacy screen.pdf'}
+    ],
+    links:[{label:'Design Presentation',href:'#'}],
+    height:'medium'
+  },
+  {id:'Think dose',title:'Think Dose: High dosage origami drug delivery system',category:'Design',year:'2025',
+    blurb:'Kresling Honeycomb drug delivery device for 25 ml capacity delivery of incompatible drugs.',
+    description:'This drug delivery system was proposed for the Sanofi Design Challenge.',
+    embeds:[
+      {label:'Design PDF', type:'pdf', src:'assets/ThinkDose submission (1).pdf'}
+    ],
+    links:[{label:'Presentation',href:'#'}],
+    height:'tall'
+  },
     ];
 
 // Cursor-reveal menu (near top-right)
