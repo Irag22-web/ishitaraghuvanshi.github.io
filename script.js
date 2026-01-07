@@ -58,6 +58,22 @@ const PROJECTS=[
     links:[{label:'Presentation',href:'#'}],
     height:'tall'
   },
+    {
+  id: 'instagram-ishix',
+  title: 'Art on Instagram',
+  category: 'Designer',
+  blurb: 'A visual journal of my art pieces',
+  description:
+    'This Instagram space captures all my personal works throughout the years with various mediums that I have previously experimented with.',
+  embedSrc: 'https://www.instagram.com/ishix_r/embed',
+  links: [
+    {
+      label: 'Open Instagram',
+      href: 'https://www.instagram.com/ishix_r/'
+    }
+  ],
+  height: 'tall'
+},
 ];
 // Cursor-reveal menu (near top-right)
 const menuWrap=document.getElementById('menuWrap');
