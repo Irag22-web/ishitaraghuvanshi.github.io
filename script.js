@@ -59,7 +59,6 @@ const PROJECTS=[
     height:'tall'
   },
 ];
-
 // Cursor-reveal menu (near top-right)
 const menuWrap=document.getElementById('menuWrap');
 const menuBtn=document.getElementById('menuBtn');
