@@ -72,7 +72,7 @@ const PROJECTS=[
       href: 'https://www.instagram.com/ishix_r/'
     }
   ],
-  height: 'tall'
+  height: 'medium'
 },
     { 
     id:'MilleniumFellow',title:'Millenium Fellowship',category:'Community Advocate',year:'2025',
