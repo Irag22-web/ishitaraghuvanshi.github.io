@@ -74,26 +74,6 @@ const PROJECTS=[
   ],
   height: 'medium'
 },
-    {
-  id: "millennium-fellowship",
-  title: "Millennium Fellowship",
-  category: "community",
-  year: "2025",
-  blurb: "Literacy for Longevity project under the Millennium Fellowship.",
-  description:
-    "Currently building a financial literacy and health management toolkit for low-income and minority households in metro Atlanta.",
-  embedSrc:
-    "https://docs.google.com/gview?url=https://irag22-web.github.io/ishitaraghuvanshi.github.io/assets/Ishita%20Raghuvanshi_Georgia%20Institute%20of%20Technology_Social%20Impact%20Tour-2025.pptx&embedded=true",
-  links: [
-    {
-      label: "Open Slides",
-      href: "assets/Ishita Raghuvanshi_Georgia Institute of Technology_Social Impact Tour-2025.pptx"
-    }
-  ],
-  height: "tall"
-}
-‎
-
 ];
 // Cursor-reveal menu (near top-right)
 const menuWrap=document.getElementById('menuWrap');
