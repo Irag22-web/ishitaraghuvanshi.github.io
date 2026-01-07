@@ -49,6 +49,15 @@ const PROJECTS=[
     links:[{label:'Presentation',href:'#'}],
     height:'tall'
   },
+    {id:'OnebyFour',title:'OnebyFour',category:'Design',year:'2025',
+    blurb:'Peer to peer platform for summer storage'',
+    description:'1st place winner at the FairTech Hackathon at Georgia Tech. Built a peer to peer platform for students to store items during the breaks.',
+    embeds:[
+      {label:'Presentation PDF', type:'pdf', src:'assets/OnebyFour.pdf'}
+    ],
+    links:[{label:'Presentation',href:'#'}],
+    height:'tall'
+  },
 ];
 // Cursor-reveal menu (near top-right)
 const menuWrap=document.getElementById('menuWrap');
