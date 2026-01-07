@@ -74,16 +74,14 @@ const PROJECTS=[
   ],
   height: 'medium'
 },
-    { 
-    id:'MilleniumFellow',title:'Millenium Fellowship',category:'Community Advocate',year:'2025',
+    {id:'MilleniumFellow',title:'Millenium Fellowship',category:'community advocate',year:'2025',
     blurb:'Literacy for Longetivity project under the Millenium Fellowship',
-    description:
-      'Currently building financial Literacy and health management tool-kit for low income and minority households in metro-Atlanta',
+    description:'Currently building financial Literacy and health management tool-kit for low income and minority households in metro-Atlanta',
     embeds:[
-      {label:'Social Tour presentation', type:'presentation', src:'assests/Ishita Raghuvanshi_Georgia Institute of Technology_Social Impact Tour-2025.pptx'}
+      {label:'Social Tour Presentation', type:'pdf', src:'assets/Ishita Raghuvanshi_Georgia Institute of Technology_Social Impact Tour-2025.pptx'}
     ],
     links:[{label:'Presentation',href:'#'}],
-    height:'short'
+    height:'tall'
   },‎
 
 ];
