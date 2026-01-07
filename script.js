@@ -2,7 +2,7 @@ const COLORS={designer:['#81a6de','#456ab5'],healthcare:['#689139','#d8b152'],co
 const CATEGORY_LABELS={designer:'Designer',healthcare:'Healthcare Innovator',community:'Community Advocate',research:'Biomedical Researcher',impact:'Impact Strategist'};
 
 const PROJECTS=[
-  {id:'CAD-projects',title:'CAD Portfolio 2025',category:'designer',year:'2025',
+    {id:'CAD-projects',title:'CAD Portfolio 2025',category:'designer',year:'2025',
     blurb:'3D modeling and rendering through Fusion 360.',
     description:'Computer aided design projects done on Fusion 360 and cloud rendered. This portfolio includes modeling of healthcare tools and devices as well as some fun furniture projects.',
     embeds:[
@@ -45,15 +45,6 @@ const PROJECTS=[
     description:'This drug delivery system was proposed for the Sanofi Design Challenge.',
     embeds:[
       {label:'Design PDF', type:'pdf', src:'assets/ThinkDose submission (1).pdf'}
-    ],
-    links:[{label:'Presentation',href:'#'}],
-    height:'tall'
-  },
-   {id:'OnebyFour',title:'OnebyFour',category:'Design',year:'2025',
-    blurb:'Peer to peer platform for summer storage'',
-    description:'1st place winner at the FairTech Hackathon at Georgia Tech. Built a peer to peer platform for students to store items during the breaks.',
-    embeds:[
-      {label:'Presentation PDF', type:'pdf', src:'assets/OnebyFour.pdf'}
     ],
     links:[{label:'Presentation',href:'#'}],
     height:'tall'
